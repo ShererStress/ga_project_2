@@ -7,10 +7,11 @@ const methodOverride = require("method-override");
 
 //Environment variables
 //require(`dotenv`).config();
-// const PORT = process.env.PORT;
+//const PORT = process.env.PORT;
 const port = 3000;
-// const mongoURI = process.env.MONGODB_URI;
+//const mongoURI = process.env.MONGODB_URI;
 const mongoURI = `mongodb://localhost:27017/code_storage`;
+
 
 //Mongo setup
 mongoose.connect(mongoURI, { useNewUrlParser: true });
