@@ -30,7 +30,7 @@ mongoose.set("useFindAndModify", false);
 
 //Start the server
 app.listen(PORT, function() {
-  console.log(`Server active - port ${port}`);
+  console.log(`Server active - port ${PORT}`);
 });
 
 
