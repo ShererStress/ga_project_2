@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <h1>Log: <%= tomeDataKey.title %> </h1>
+         <%=tomeDataKey.jsText; %>
+        <nav>
+            <a href="/">Back to code Index</a>
+        </nav>
+        <nav>
+            <a href="/<%=tomeDataKey.id%>/edit">Edit this code</a>
+        </nav>
+        <form action="/<%=tomeDataKey.id%>?_method=DELETE" method="POST">
+          <input type="submit" value="Delete"> </input>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <h1>Edit Code page</h1>
+        <form action="/<%= tomeDataKey.id %>?_method=PUT" method="POST">
+          Code Title: <textarea name="name" ><%= tomeDataKey.name %> </textarea><br/>
+          Code Text: <textarea name="jsText" ><%= tomeDataKey.jsText %> </textarea><br/>
+            <input type="submit" name="" value="Edit Code"/>
+        </form>
+    </body>
+</html>

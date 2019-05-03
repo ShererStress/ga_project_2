@@ -28,7 +28,6 @@ mongoose.set("useFindAndModify", false);
 
 
 //Start the server
-
 app.listen(port, function() {
   console.log(`Server active - port ${port}`);
 });
@@ -39,7 +38,7 @@ app.listen(port, function() {
 app.use(methodOverride("_method"));
 // parses info from our input fields into an object
 app.use(express.urlencoded({ extended: false }));
-// app.use(session{}) goes methodOverride
+// app.use(session{}) goes here
 
 
 //Controller routes
@@ -51,40 +50,57 @@ app.use(express.urlencoded({ extended: false }));
 app.get(`/`, function(req,res) {
   Tome.find({}, function(err, allTomes) {
     console.log(allTomes);
-    res.send(`The server is running - tome index page`);
+    res.render(`index.ejs`, {
+      allTomesKey: allTomes,
+    });
   });
 });
 
 
 //SHOW(get) - new tome form
 app.get(`/new`, function(req,res) {
-  res.send(`New tome form (new.ejs)`);
+  res.render(`new.ejs`);
 });
 
 //CREATE(post) - create new product -> Show single block
 app.post(`/`, function(req,res) {
-  console.log(`New tome added (not really)`);
-  res.redirect(`/`);
-});
-
-//SHOW(get) - single products
-app.get(`/:id`, function(req,res) {
-  res.send(`Show single tome ${req.params.id} (show.ejs)`);
+  Tome.create(req.body, function(err, tomeData) {
+    res.redirect(`/`);
+  });
 });
 
 //EDIT(get) - edit/delete single product
 app.get(`/:id/edit`, function(req,res) {
-  res.send(`Edit/delete tome form (edit.ejs)`);
+  Tome.findById(req.params.id, function(err, tomeData) {
+    res.render(`edit.ejs`, {
+      tomeDataKey: tomeData,
+    });
+  });
 });
+
+
+//SHOW(get) - single products
+app.get(`/:id`, function(req,res) {
+  Tome.findById(req.params.id, function(err, tomeData) {
+    res.render(`show.ejs`, {
+      tomeDataKey: tomeData,
+    });
+  });
+});
+
 
 //UPDATE(put) - update single product, -> show single product
 app.put(`/:id`, function(req,res) {
-  console.log(`Tome edited (not really)`);
-  res.redirect(`/${req.params.id}`);
+  console.log(req.body);
+  Tome.findByIdAndUpdate(req.params.id, req.body, {new:true}, function(err, editedLog) {
+    console.log(editedLog);
+    res.redirect(`/${req.params.id}`);
+  });
 });
 
 //DESTROY(delete) - delete single product -> index
 app.delete(`/:id`, function(req,res) {
-  console.log(`Tome deleted (not really)`);
-  res.send(`/${req.params.id}`);
+  Tome.findByIdAndDelete(req.params.id, function(err, removedTome) {
+    res.redirect(`/`);
+  });
 });

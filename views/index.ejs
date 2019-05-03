@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <!-- <link rel="stylesheet" type="text/css" href="/css/indexStyle.css"> -->
+</head>
+<body>
+  <h1 style="text-align:center">Tomes index page</h1>
+  <div class="flexDiv">
+    <% for(let i = 0; i < allTomesKey.length; i++){ %>
+    <div class=productDiv>
+        <a href="<%=allTomesKey[i].id%>"><h3><%=allTomesKey[i].name;%></h3></a>
+    </div>
+    <% } %>
+  </div>
+  <nav>
+    <a href="/new"> <h4 style="text-align:center"> Create a new tome</h4></a>
+  </nav>
+</body>
+</html>
