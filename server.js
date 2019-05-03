@@ -7,8 +7,8 @@ const methodOverride = require("method-override");
 
 //Environment variables
 require(`dotenv`).config();
-//const PORT = process.env.PORT;
-const port = 3000;
+const PORT = process.env.PORT;
+//const PORT = 3000;
 const mongoURI = process.env.MONGODB_URI;
 //const mongoURI = `mongodb://localhost:27017/code_storage`;
 
@@ -29,7 +29,7 @@ mongoose.set("useFindAndModify", false);
 
 
 //Start the server
-app.listen(port, function() {
+app.listen(PORT, function() {
   console.log(`Server active - port ${port}`);
 });
 
