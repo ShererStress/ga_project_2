@@ -102,10 +102,16 @@ app.delete(`/:id`, function(req,res) {
   });
 });
 
+//RUN(get) - runs the input function
 app.get(`/:id/run`, function(req,res) {
   Tome.findById(req.params.id, function(err, tomeData) {
     res.render(`run.ejs`, {
       tomeDataKey: tomeData,
+    }, function(err, html) {
+      if(err) {
+        console.log(err);
+        res.send(`The code encountered an error!`);
+      }
     });
   });
 });
