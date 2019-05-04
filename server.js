@@ -50,7 +50,6 @@ app.use(express.urlencoded({ extended: false }));
 //SHOW(get) - index
 app.get(`/`, function(req,res) {
   Tome.find({}, function(err, allTomes) {
-    console.log(allTomes);
     res.render(`index.ejs`, {
       allTomesKey: allTomes,
     });
@@ -89,12 +88,9 @@ app.get(`/:id`, function(req,res) {
   });
 });
 
-
 //UPDATE(put) - update single product, -> show single product
 app.put(`/:id`, function(req,res) {
-  console.log(req.body);
   Tome.findByIdAndUpdate(req.params.id, req.body, {new:true}, function(err, editedLog) {
-    console.log(editedLog);
     res.redirect(`/${req.params.id}`);
   });
 });
@@ -103,5 +99,13 @@ app.put(`/:id`, function(req,res) {
 app.delete(`/:id`, function(req,res) {
   Tome.findByIdAndDelete(req.params.id, function(err, removedTome) {
     res.redirect(`/`);
+  });
+});
+
+app.get(`/:id/run`, function(req,res) {
+  Tome.findById(req.params.id, function(err, tomeData) {
+    res.render(`run.ejs`, {
+      tomeDataKey: tomeData,
+    });
   });
 });
