@@ -104,6 +104,7 @@ app.delete(`/:id`, function(req,res) {
 
 //RUN(get) - runs the input function
 app.get(`/:id/run`, function(req,res) {
+  console.log("here we go");
   Tome.findById(req.params.id, function(err, tomeData) {
     res.render(`run.ejs`, {
       tomeDataKey: tomeData,

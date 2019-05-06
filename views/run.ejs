@@ -6,9 +6,14 @@
     </head>
     <body>
         <h1>Log: <%= tomeDataKey.title %> </h1>
-         <% eval(tomeDataKey.jsText); %>
+        // <% eval(tomeDataKey.jsText); %>
         <nav>
             <a href="/">Back to code Index</a>
         </nav>
+        
+        <% eval(tomeDataKey.jsText);
+         let a = 6;
+         console.log(a);
+         %>
     </body>
 </html>
