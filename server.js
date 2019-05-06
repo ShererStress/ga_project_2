@@ -40,7 +40,7 @@ app.use(methodOverride("_method"));
 // parses info from our input fields into an object
 app.use(express.urlencoded({ extended: false }));
 // app.use(session{}) goes here
-
+app.use(express.static('public'));
 
 //Controller routes
 

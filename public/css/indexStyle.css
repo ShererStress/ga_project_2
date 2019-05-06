@@ -1,0 +1,44 @@
+.flexDiv {
+  width: 100vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  box-sizing: border-box;
+  border: 1em solid white;
+}
+
+.productDiv {
+  width: 12em;
+  height: 15em;
+  background-color: grey;
+  margin: 5px;
+  border: 3px solid grey;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  text-decoration: none;
+  color: black
+}
+
+.caught {
+  background-color: green;
+  color: white;
+}
+
+h2 {
+  margin: .3em;
+  text-decoration: none;
+  font-size: 1.2em;
+
+}
+
+img {
+  max-width: 80%;
+  max-height: 10em;
+  margin: auto;
+  display: block;
+  border: 3px solid black;
+  border-radius: 2px;
+}
