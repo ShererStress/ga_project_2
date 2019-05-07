@@ -7,7 +7,9 @@
     <body>
         <h1>Edit Code page</h1>
         <form action="/<%= tomeDataKey.id %>?_method=PUT" method="POST">
-          Code Title: <textarea name="name" ><%= tomeDataKey.name %> </textarea><br/>
+          Code Title: <textarea name="title" ><%= tomeDataKey.title %> </textarea><br/>
+          Function Name: <input type="text" name="fName" value="<%= tomeDataKey.fName %>"/><br/>
+          Parameter 1: <input type="text" name="parOne" value="<%= tomeDataKey.parameters[0] %>"/><br/>
           Code Text: <textarea name="jsText" ><%= tomeDataKey.jsText %> </textarea><br/>
             <input type="submit" name="" value="Edit Code"/>
         </form>

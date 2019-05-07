@@ -100,6 +100,7 @@ app.get(`/:id`, function(req,res) {
 
 //UPDATE(put) - update single product, -> show single product
 app.put(`/:id`, function(req,res) {
+  req.body.parameters = [req.body.parOne];
   Tome.findByIdAndUpdate(req.params.id, req.body, {new:true}, function(err, editedLog) {
     res.redirect(`/${req.params.id}`);
   });

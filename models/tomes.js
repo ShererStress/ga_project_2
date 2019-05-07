@@ -1,7 +1,9 @@
 const mongoose = require(`mongoose`);
 
 const tomeSchema = new mongoose.Schema( {
-  name: {type: String, required: true},
+  title: {type: String, required: true},
+  fName: String,
+  parameters: [String],
   jsText: String,
 });
 

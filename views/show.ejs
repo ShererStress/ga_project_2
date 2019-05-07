@@ -5,8 +5,17 @@
         <title></title>
     </head>
     <body>
-        <h1>Log: <%= tomeDataKey.title %> </h1>
-         <%=tomeDataKey.jsText; %>
+      <h1> <%= tomeDataKey.title %> </h1>
+        <h4><%= tomeDataKey.fName %> ( <% for(let i = 0; i < tomeDataKey.parameters.length; i++) { console.log("Cycling");%>
+        <%=tomeDataKey.parameters[i]%>
+      <%}%>)
+           { </h4>
+             <h4>
+          <%=tomeDataKey.jsText; %>
+          </h4><h4>
+        }
+
+         </h4>
         <nav>
             <a href="/">Back to code Index</a>
         </nav>

@@ -10,7 +10,8 @@
   <div class="flexDiv">
     <% for(let i = 0; i < allTomesKey.length; i++){ %>
     <div class=productDiv>
-        <a href="<%=allTomesKey[i].id%>"><h3><%=allTomesKey[i].name;%></h3></a>
+        <a href="<%=allTomesKey[i].id%>"><h3><%=allTomesKey[i].title;%></h3></a>
+        <h3> <%=allTomesKey[i].fName%> </h3>
     </div>
     <% } %>
   </div>
