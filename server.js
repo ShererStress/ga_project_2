@@ -78,6 +78,16 @@ app.get(`/:id/edit`, function(req,res) {
   });
 });
 
+//SHOW - iframe
+app.get(`/testFrame/:id`, function(req,res) {
+  Tome.findById(req.params.id, function(err, tomeData) {
+    res.render(`testIframe.ejs`, {
+      tomeDataKey: tomeData,
+    });
+  });
+});
+
+
 
 //SHOW(get) - single products
 app.get(`/:id`, function(req,res) {
@@ -112,6 +122,8 @@ app.get(`/:id/run`, function(req,res) {
       if(err) {
         console.log(err);
         res.send(`The code encountered an error!`);
+      } else {
+        res.send(html);
       }
     });
   });

@@ -6,14 +6,9 @@
     </head>
     <body>
         <h1>Log: <%= tomeDataKey.title %> </h1>
-        // <% eval(tomeDataKey.jsText); %>
         <nav>
-            <a href="/">Back to code Index</a>
+            <a href="/">Back to code Index (this is the run page)</a>
         </nav>
-        
-        <% eval(tomeDataKey.jsText);
-         let a = 6;
-         console.log(a);
-         %>
+        <iframe src="../testFrame/<%=tomeDataKey.id%>" sandbox="allow-scripts"></iframe>
     </body>
 </html>
