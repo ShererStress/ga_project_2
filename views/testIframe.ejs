@@ -8,17 +8,29 @@
       <h2>This is the iFrame!</h2>
       <h4>
         Start js here
+        <%
         let returnedData = [];
         let currentReturnIndex = -1;
+        %>
 
-        make this a string
-        function standIn(<% for(let i = 0; i < tomeDataKey.parameters.length; i++) {%><%=tomeDataKey.parameters[i]%><%if(i+1<tomeDataKey.parameters.length){%><%=", "%><%}%><%}%>) {
-          <%=tomeDataKey.jsText %>
+        <%
+        let standInString = `function factorial(`;
+        for(let i = 0; i < tomeDataKey.parameters.length; i++) {
+          standInString += tomeDataKey.parameters[i];
+          if(i+1<tomeDataKey.parameters.length) {
+            standInString += ", ";
+          };
         };
-        now eval it
+        standInString += `) { ${tomeDataKey.jsText}}`;
+        %>
+
+        <%=standInString%>
+        <%eval(standInString)%>
+        <% console.log(factorial(6,-1)); %>
 
         make this a string
-        function <%=tomeDataKey.fName%> (<% for(let i = 0; i < tomeDataKey.parameters.length; i++) {%><%=tomeDataKey.parameters[i]%><%if(i+1<tomeDataKey.parameters.length){%><%=", "%><%}%><%}%>) {
+
+        eval(  function <%=tomeDataKey.fName%> (<% for(let i = 0; i < tomeDataKey.parameters.length; i++) {%><%=tomeDataKey.parameters[i]%><%if(i+1<tomeDataKey.parameters.length){%><%=", "%><%}%><%}%>) {
           currentReturnIndex++;
           returnedData.push("");
           let thisFunctionsIndex = currentReturnIndex;
@@ -31,12 +43,12 @@
           returnedData[thisFunctionsIndex] = thisFunctionsOutputObject;
           return data;
         };
-        now eval it
 
         Now run everything!
-        standIn(parametersIn);
+        standIn(6, -1);
 
         console.log(returnedData);
+
         Eventually, send message to run.ejs here (message content = returnedData)
 
 
