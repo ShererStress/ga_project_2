@@ -4,16 +4,14 @@
         <meta charset="utf-8">
         <title></title>
     </head>
-    <body>
+    <body >
       <h1> <%= tomeDataKey.title %> </h1>
-        <h4><%= tomeDataKey.fName %> ( <% for(let i = 0; i < tomeDataKey.parameters.length; i++) { console.log("Cycling");%>
-        <%=tomeDataKey.parameters[i]%>
+        <h4><%= tomeDataKey.fName %> ( <% for(let i = 0; i < tomeDataKey.parameters.length; i++) {
+         <%=tomeDataKey.parameters[i]%><%if(i+1<tomeDataKey.parameters.length){%><%=", "%><%}%>
       <%}%>)
            { </h4>
-             <h4>
-          <%=tomeDataKey.jsText; %>
-          </h4><h4>
-        }
+             <wrapper style="white-space: pre-wrap;"><h4><%=tomeDataKey.jsText; %></h4></wrapper><h4>
+             }
 
          </h4>
         <nav>

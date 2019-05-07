@@ -4,14 +4,42 @@
         <meta charset="utf-8">
         <title></title>
     </head>
-    <body>
-      <h1>This is the iFrame!</h1>
+    <body style="white-space: pre-wrap;">
+      <h2>This is the iFrame!</h2>
+      <h4>
+        Start js here
+        let returnedData = [];
+        let currentReturnIndex = -1;
 
-        <h3> Here: <%=  eval(tomeDataKey.jsText); %> </h3>
-        <%
-         let a = 6;
-         console.log(a);
-         %>
+        make this a string
+        function standIn(<% for(let i = 0; i < tomeDataKey.parameters.length; i++) {%><%=tomeDataKey.parameters[i]%><%if(i+1<tomeDataKey.parameters.length){%><%=", "%><%}%><%}%>) {
+          <%=tomeDataKey.jsText %>
+        };
+        now eval it
+
+        make this a string
+        function <%=tomeDataKey.fName%> (<% for(let i = 0; i < tomeDataKey.parameters.length; i++) {%><%=tomeDataKey.parameters[i]%><%if(i+1<tomeDataKey.parameters.length){%><%=", "%><%}%><%}%>) {
+          currentReturnIndex++;
+          returnedData.push("");
+          let thisFunctionsIndex = currentReturnIndex;
+          let thisFunctionsOutputObject = {};
+          For each parameter:
+          thisFunctionsOutputObject.par(i)Data = par(i);
+
+          let data = standIn(<% for(let i = 0; i < tomeDataKey.parameters.length; i++) {%><%=tomeDataKey.parameters[i]%><%if(i+1<tomeDataKey.parameters.length){%><%=", "%><%}%><%}%>);
+          thisFunctionsOutputObject.returnedData = data;
+          returnedData[thisFunctionsIndex] = thisFunctionsOutputObject;
+          return data;
+        };
+        now eval it
+
+        run this
+        standIn(parametersIn);
+
+        send message to run.ejs here (message content = returnedData)
+
+
+      </h4>
 
     </body>
 </html>
