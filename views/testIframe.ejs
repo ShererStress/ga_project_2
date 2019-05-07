@@ -23,9 +23,9 @@
           returnedData.push("");
           let thisFunctionsIndex = currentReturnIndex;
           let thisFunctionsOutputObject = {};
-          For each parameter:
-          thisFunctionsOutputObject.par(i)Data = par(i);
-
+          <% for(let i = 0; i < tomeDataKey.parameters.length; i++) {%>
+          thisFunctionsOutputObject.param<%=i%>Data = <%=tomeDataKey.parameters[i]%>;
+          <%}%>
           let data = standIn(<% for(let i = 0; i < tomeDataKey.parameters.length; i++) {%><%=tomeDataKey.parameters[i]%><%if(i+1<tomeDataKey.parameters.length){%><%=", "%><%}%><%}%>);
           thisFunctionsOutputObject.returnedData = data;
           returnedData[thisFunctionsIndex] = thisFunctionsOutputObject;
@@ -33,10 +33,11 @@
         };
         now eval it
 
-        run this
+        Now run everything!
         standIn(parametersIn);
 
-        send message to run.ejs here (message content = returnedData)
+        console.log(returnedData);
+        Eventually, send message to run.ejs here (message content = returnedData)
 
 
       </h4>
