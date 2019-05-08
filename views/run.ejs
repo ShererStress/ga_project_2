@@ -10,6 +10,16 @@
             <a href="/">Back to code Index (this is the run page)</a>
         </nav>
 
-        <iframe src="../testFrame/<%=tomeDataKey.id%>" sandbox="allow-scripts" width="1000px" height="1000px"></iframe>
+        <iframe src="../testFrame/<%=tomeDataKey.id%>" id="theSandbox" sandbox="allow-scripts" width="1000px" height="1000px"></iframe>
+
+        <script>
+        console.log("Run script is active");
+          let sandboxElement = document.getElementById("theSandbox");
+          let testInfo = "TESTING WITH A MESSAGE";
+          setTimeout(function() {
+            console.log("Message sent?");
+            sandboxElement.contentWindow.postMessage(testInfo, "*");
+          }, 5000);
+        </script>
     </body>
 </html>

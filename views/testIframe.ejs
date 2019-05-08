@@ -14,45 +14,75 @@
         %>
 
         <%
-        let standInString = `function factorial(`;
+        let standInString = `function standIn(`;
         for(let i = 0; i < tomeDataKey.parameters.length; i++) {
           standInString += tomeDataKey.parameters[i];
           if(i+1<tomeDataKey.parameters.length) {
             standInString += ", ";
           };
         };
-        standInString += `) { ${tomeDataKey.jsText}}`;
+        standInString += `) {
+          ${tomeDataKey.jsText}}`;
         %>
-
-        <%=standInString%>
+        <%=standInString %>
         <%eval(standInString)%>
-        <% console.log(factorial(6,-1)); %>
 
-        make this a string
+        <%
+        let recFunctionString = `function ${tomeDataKey.fName}(`;
+        for(let i = 0; i < tomeDataKey.parameters.length; i++) {
+          recFunctionString += tomeDataKey.parameters[i];
+          if(i+1<tomeDataKey.parameters.length) {
+            recFunctionString += ", ";
+          };
+        };
 
-        eval(  function <%=tomeDataKey.fName%> (<% for(let i = 0; i < tomeDataKey.parameters.length; i++) {%><%=tomeDataKey.parameters[i]%><%if(i+1<tomeDataKey.parameters.length){%><%=", "%><%}%><%}%>) {
+        recFunctionString += `) {
           currentReturnIndex++;
           returnedData.push("");
           let thisFunctionsIndex = currentReturnIndex;
           let thisFunctionsOutputObject = {};
-          <% for(let i = 0; i < tomeDataKey.parameters.length; i++) {%>
-          thisFunctionsOutputObject.param<%=i%>Data = <%=tomeDataKey.parameters[i]%>;
-          <%}%>
-          let data = standIn(<% for(let i = 0; i < tomeDataKey.parameters.length; i++) {%><%=tomeDataKey.parameters[i]%><%if(i+1<tomeDataKey.parameters.length){%><%=", "%><%}%><%}%>);
+          `;
+
+          for(let i = 0; i < tomeDataKey.parameters.length; i++) {
+            recFunctionString += `thisFunctionsOutputObject.param${i}Data = ${tomeDataKey.parameters[i]};
+            `;
+          }
+          recFunctionString += `let data = standIn(`;
+          for(let i = 0; i < tomeDataKey.parameters.length; i++) {
+            recFunctionString += tomeDataKey.parameters[i];
+            if(i+1<tomeDataKey.parameters.length){
+              recFunctionString += ", ";
+            }
+          }
+          recFunctionString += `);
+
           thisFunctionsOutputObject.returnedData = data;
           returnedData[thisFunctionsIndex] = thisFunctionsOutputObject;
           return data;
-        };
+        };`;
+        %>
+
+        <%=recFunctionString %>
+        <%eval(recFunctionString)%>
 
         Now run everything!
-        standIn(6, -1);
+        Loop over parameters, add to the data array
+        <%standIn(15, -1);%>
 
-        console.log(returnedData);
+        <%console.log(returnedData);%>
 
         Eventually, send message to run.ejs here (message content = returnedData)
 
-
       </h4>
 
+      <script>
+        console.log("script is active");
+        window.addEventListener("message", function(infoIn) {
+          console.log("something was heard");
+          let sourceWindow = infoIn.source;
+          console.log(infoIn.data)
+        });
+
+      </script>
     </body>
 </html>
