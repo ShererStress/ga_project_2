@@ -5,26 +5,12 @@
         <title></title>
     </head>
     <body>
-        <h1>Log: <%= tomeDataKey.title %> </h1>
+        <h1>Running: <%= tomeDataKey.title %> </h1>
         <nav>
             <a href="/codeBlock/<%= tomeDataKey.id %>">Back to code page (this is the run page)</a>
         </nav>
 
         <iframe src="../testFrame/<%=tomeDataKey.id%>" id="theSandbox" sandbox="allow-scripts" width="1000px" height="1000px"></iframe>
 
-        <script>
-          console.log("Run script is active");
-
-          window.addEventListener("message", function(infoIn) {
-            console.log(infoIn.data)
-          });
-
-          let sandboxElement = document.getElementById("theSandbox");
-          let testInfo = "CAN YOU HEAR ME";
-          setTimeout(function() {
-            console.log("Message sent?");
-            sandboxElement.contentWindow.postMessage(testInfo, "*");
-          }, 5000);
-        </script>
     </body>
 </html>

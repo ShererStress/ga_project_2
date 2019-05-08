@@ -3,6 +3,8 @@ const router = express.Router();
 
 const Tome = require('../models/tomes.js');
 
+let inputArgumentsGlobal = [];
+
 
 //SHOW(get) - index
 router.get(`/`, function(req,res) {
@@ -20,6 +22,7 @@ router.get(`/new`, function(req,res) {
 
 //CREATE(post) - create new product -> Show single block
 router.post(`/`, function(req,res) {
+  console.log(req.body);
   Tome.create(req.body, function(err, tomeData) {
     res.redirect(`/codeBlock/`);
   });
@@ -39,11 +42,10 @@ router.get(`/testFrame/:id`, function(req,res) {
   Tome.findById(req.params.id, function(err, tomeData) {
     res.render(`testIframe.ejs`, {
       tomeDataKey: tomeData,
+      argumentsInKey: inputArgumentsGlobal
     });
   });
 });
-
-
 
 //SHOW(get) - single products
 router.get(`/:id`, function(req,res) {
@@ -54,7 +56,7 @@ router.get(`/:id`, function(req,res) {
   });
 });
 
-//UPDATE(put) - update single product, -> show single product
+//UPDATE(put) - update single tome, -> show single tome
 router.put(`/:id`, function(req,res) {
   let paramNumber = 0;
   req.body.parameters = [];
@@ -75,11 +77,17 @@ router.delete(`/:id`, function(req,res) {
 });
 
 //RUN(get) - runs the input function
-router.get(`/:id/run`, function(req,res) {
-  console.log("here we go");
+router.post(`/:id/run`, function(req,res) {
+  let paramNumber = 0;
+  let parametersIn = [];
+  while(req.body[`parIn${paramNumber}`] !== undefined) {
+    parametersIn.push(req.body[`parIn${paramNumber}`]);
+    paramNumber++;
+  }
+  inputArgumentsGlobal = parametersIn;
   Tome.findById(req.params.id, function(err, tomeData) {
     res.render(`run.ejs`, {
-      tomeDataKey: tomeData,
+      tomeDataKey: tomeData
     }, function(err, html) {
       if(err) {
         console.log(err);

@@ -6,89 +6,83 @@
     </head>
     <body style="white-space: pre-wrap;">
       <h2>This is the iFrame!</h2>
+
       <h4>
-        Start js here
-        <%
-        let returnedData = [];
-        let currentReturnIndex = -1;
-        %>
+              Start js here
+              <%
+              let returnedData = [""];
+              let currentReturnIndex = 0;
+              %>
 
-        <%
-        let standInString = `function standIn(`;
-        for(let i = 0; i < tomeDataKey.parameters.length; i++) {
-          standInString += tomeDataKey.parameters[i];
-          if(i+1<tomeDataKey.parameters.length) {
-            standInString += ", ";
-          };
-        };
-        standInString += `) {
-          ${tomeDataKey.jsText}}`;
-        %>
-        <%=standInString %>
-        <%eval(standInString)%>
+              <%
+              let standInString = `function standIn(`;
+              for(let i = 0; i < tomeDataKey.parameters.length; i++) {
+                standInString += tomeDataKey.parameters[i];
+                if(i+1<tomeDataKey.parameters.length) {
+                  standInString += ", ";
+                };
+              };
+              standInString += `) {
+                ${tomeDataKey.jsText}}`;
+              %>
+              <%=standInString %>
+              <%eval(standInString)%>
 
-        <%
-        let recFunctionString = `function ${tomeDataKey.fName}(`;
-        for(let i = 0; i < tomeDataKey.parameters.length; i++) {
-          recFunctionString += tomeDataKey.parameters[i];
-          if(i+1<tomeDataKey.parameters.length) {
-            recFunctionString += ", ";
-          };
-        };
+              <%
+              let recFunctionString = `function ${tomeDataKey.fName}(`;
+              for(let i = 0; i < tomeDataKey.parameters.length; i++) {
+                recFunctionString += tomeDataKey.parameters[i];
+                if(i+1<tomeDataKey.parameters.length) {
+                  recFunctionString += ", ";
+                };
+              };
+              recFunctionString += `) {
+                currentReturnIndex++;
+                returnedData.push("");
+                let thisFunctionsIndex = currentReturnIndex;
+                let thisFunctionsOutputObject = {};
+                `;
+                for(let i = 0; i < tomeDataKey.parameters.length; i++) {
+                  recFunctionString += `thisFunctionsOutputObject.param${i}Data = ${tomeDataKey.parameters[i]};
+                  `;
+                }
+                recFunctionString += `let data = standIn(`;
+                for(let i = 0; i < tomeDataKey.parameters.length; i++) {
+                  recFunctionString += tomeDataKey.parameters[i];
+                  if(i+1<tomeDataKey.parameters.length){
+                    recFunctionString += ", ";
+                  }
+                }
+                recFunctionString += `);
+                thisFunctionsOutputObject.returnedData = data;
+                returnedData[thisFunctionsIndex] = thisFunctionsOutputObject;
+                return data;
+              };`;
+              %>
 
-        recFunctionString += `) {
-          currentReturnIndex++;
-          returnedData.push("");
-          let thisFunctionsIndex = currentReturnIndex;
-          let thisFunctionsOutputObject = {};
-          `;
+              <%=recFunctionString %>
+              <%eval(recFunctionString)%>
+              <% console.log(argumentsInKey); %>
 
-          for(let i = 0; i < tomeDataKey.parameters.length; i++) {
-            recFunctionString += `thisFunctionsOutputObject.param${i}Data = ${tomeDataKey.parameters[i]};
-            `;
-          }
-          recFunctionString += `let data = standIn(`;
-          for(let i = 0; i < tomeDataKey.parameters.length; i++) {
-            recFunctionString += tomeDataKey.parameters[i];
-            if(i+1<tomeDataKey.parameters.length){
-              recFunctionString += ", ";
-            }
-          }
-          recFunctionString += `);
+              <%
+              let initialOutputObject = {};
+              let callFunctionString = `initialOutputObject.returnedData = standIn(`;
+              for(let i = 0; i < argumentsInKey.length; i++) {
+                callFunctionString += `${argumentsInKey[i]}`;
+                if(i+1<argumentsInKey.length){
+                  callFunctionString += ", ";
+                }
+                initialOutputObject[`param${i}Data`] = argumentsInKey[i];
+              }
+              callFunctionString += `);`;
+              %>
+              <%=callFunctionString %>
+              <%eval(callFunctionString)%>
+              <%returnedData[0] = initialOutputObject; %>
+              <%console.log(returnedData);%>
 
-          thisFunctionsOutputObject.returnedData = data;
-          returnedData[thisFunctionsIndex] = thisFunctionsOutputObject;
-          return data;
-        };`;
-        %>
 
-        <%=recFunctionString %>
-        <%eval(recFunctionString)%>
 
-        Now run everything!
-        Loop over parameters, add to the data array
-        <%standIn(15, -1);%>
-
-        <%console.log(returnedData);%>
-
-        Eventually, send message to run.ejs here (message content = returnedData)
-
-      </h4>
-
-      <script>
-        console.log("script is active");
-        window.addEventListener("message", function(infoIn) {
-          let sourceWindow = infoIn.source;
-          console.log("something was heard");
-          console.log(infoIn.data);
-
-          //Run the function here
-
-          //Send back the data
-          let returnMessage = "YES I CAN";
-          sourceWindow.postMessage(returnMessage, event.origin);
-        });
-
-      </script>
+            </h4>
     </body>
 </html>
