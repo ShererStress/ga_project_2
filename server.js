@@ -15,18 +15,17 @@ const mongoURI = process.env.MONGODB_URI;
 
 //Mongo setup
 mongoose.connect(mongoURI, { useNewUrlParser: true });
+//Prevents a few depreciation warnings
+mongoose.set("useFindAndModify", false);
+
 mongoose.connection.once("open", ()=> {
   console.log(`!\n connected to mongo \n!`);
 });
 
 const Tome = require('./models/tomes.js');
 
-//Prevents a few depreciation warnings
-mongoose.set("useFindAndModify", false);
-
-
-//Contoller routes
-
+//Contollers
+const blockController = require(`./controllers/codeBlock_controller.js`);
 
 //Start the server
 app.listen(PORT, function() {
@@ -44,93 +43,7 @@ app.use(express.static('public'));
 
 //Controller routes
 
+app.use(`/codeBlock`, blockController);
+
 
 //Server routes
-
-//SHOW(get) - index
-app.get(`/`, function(req,res) {
-  Tome.find({}, function(err, allTomes) {
-    res.render(`index.ejs`, {
-      allTomesKey: allTomes,
-    });
-  });
-});
-
-
-//SHOW(get) - new tome form
-app.get(`/new`, function(req,res) {
-  res.render(`new.ejs`);
-});
-
-//CREATE(post) - create new product -> Show single block
-app.post(`/`, function(req,res) {
-  Tome.create(req.body, function(err, tomeData) {
-    res.redirect(`/`);
-  });
-});
-
-//EDIT(get) - edit/delete single product
-app.get(`/:id/edit`, function(req,res) {
-  Tome.findById(req.params.id, function(err, tomeData) {
-    res.render(`edit.ejs`, {
-      tomeDataKey: tomeData,
-    });
-  });
-});
-
-//SHOW - iframe
-app.get(`/testFrame/:id`, function(req,res) {
-  Tome.findById(req.params.id, function(err, tomeData) {
-    res.render(`testIframe.ejs`, {
-      tomeDataKey: tomeData,
-    });
-  });
-});
-
-
-
-//SHOW(get) - single products
-app.get(`/:id`, function(req,res) {
-  Tome.findById(req.params.id, function(err, tomeData) {
-    res.render(`show.ejs`, {
-      tomeDataKey: tomeData,
-    });
-  });
-});
-
-//UPDATE(put) - update single product, -> show single product
-app.put(`/:id`, function(req,res) {
-  let paramNumber = 0;
-  req.body.parameters = [];
-  while(req.body[`par${paramNumber}`] !== undefined) {
-    req.body.parameters.push(req.body[`par${paramNumber}`]);
-    paramNumber++;
-  }
-  Tome.findByIdAndUpdate(req.params.id, req.body, {new:true}, function(err, editedLog) {
-    res.redirect(`/${req.params.id}`);
-  });
-});
-
-//DESTROY(delete) - delete single product -> index
-app.delete(`/:id`, function(req,res) {
-  Tome.findByIdAndDelete(req.params.id, function(err, removedTome) {
-    res.redirect(`/`);
-  });
-});
-
-//RUN(get) - runs the input function
-app.get(`/:id/run`, function(req,res) {
-  console.log("here we go");
-  Tome.findById(req.params.id, function(err, tomeData) {
-    res.render(`run.ejs`, {
-      tomeDataKey: tomeData,
-    }, function(err, html) {
-      if(err) {
-        console.log(err);
-        res.send(`The code encountered an error!`);
-      } else {
-        res.send(html);
-      }
-    });
-  });
-});

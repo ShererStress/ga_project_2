@@ -78,9 +78,15 @@
       <script>
         console.log("script is active");
         window.addEventListener("message", function(infoIn) {
-          console.log("something was heard");
           let sourceWindow = infoIn.source;
-          console.log(infoIn.data)
+          console.log("something was heard");
+          console.log(infoIn.data);
+
+          //Run the function here
+
+          //Send back the data
+          let returnMessage = "YES I CAN";
+          sourceWindow.postMessage(returnMessage, event.origin);
         });
 
       </script>
