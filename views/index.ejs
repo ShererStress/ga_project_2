@@ -6,17 +6,21 @@
   <link rel="stylesheet" type="text/css" href="/css/indexStyle.css">
 </head>
 <body>
-  <h1 style="text-align:center">Tomes index page</h1>
+  <h1 style="text-align:center">Function Library</h1>
+  <nav>
+    <a href="codeBlock/new"> <h4 style="text-align:center"> Create a new function</h4></a>
+  </nav>
   <div class="flexDiv">
     <% for(let i = 0; i < allTomesKey.length; i++){ %>
-    <div class=productDiv>
+    <div class=tomeDiv>
         <a href="/codeBlock/<%=allTomesKey[i].id%>"><h3><%=allTomesKey[i].title;%></h3></a>
-        <h3> <%=allTomesKey[i].fName%> </h3>
+        <h3> <%=allTomesKey[i].fName%> ( <% for(let j = 0; j < allTomesKey[i].parameters.length; j++) { %><%=allTomesKey[i].parameters[j]%><% if(j+1 < allTomesKey[i].parameters.length) { %> , <%}}%>) { ... } </h3>
+        <form action="/codeBlock/<%=allTomesKey[i].id%>?_method=DELETE" method="POST">
+          <input type="submit" value="Delete"> </input>
+        </form>
     </div>
     <% } %>
   </div>
-  <nav>
-    <a href="codeBlock/new"> <h4 style="text-align:center"> Create a new tome</h4></a>
-  </nav>
+
 </body>
 </html>

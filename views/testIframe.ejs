@@ -110,7 +110,7 @@
                   <h5> Function call #: <%=allOutputData[i].fnCallNum+1%> </h5>
                   <% let j = 0;
                   while(allOutputData[i][`param${j}Data`]) { %>
-                    <h5> Parameter <%=j%>: <%=allOutputData[i][`param${j}Data`]%> </h5>
+                    <h5> <%=tomeDataKey.parameters[j]%>: <%=allOutputData[i][`param${j}Data`]%> </h5>
                     <%
                     j++;
                   }%>
