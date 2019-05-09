@@ -9,8 +9,8 @@ textArea{
   min-height: 1.5em;
 }
 
-formElement{
-  margin: auto;
+.formElement{
+  margin: 0 0 10px 0;
   width: 60vw;
   display: flex;
   flex-direction: row;
@@ -35,5 +35,20 @@ input[type=submit] {
   height: 2em;
 }
 input[type=submit]:hover {
+  background-color: lightgrey;
+}
+
+#largeBox{
+  height: 400px;
+}
+
+.greyBox{
+  background-color: grey;
+  margin: 5px;
+  border: 1px solid black;
+  border-radius: 3px;
+}
+
+.greyBox:hover {
   background-color: lightgrey;
 }

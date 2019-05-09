@@ -3,11 +3,12 @@
     <head>
         <meta charset="utf-8">
         <title></title>
+        <link rel="stylesheet" type="text/css" href="/css/runStyle.css">
     </head>
     <body>
         <h1>Running: <%= tomeDataKey.title %> </h1>
-        <nav>
-            <a href="/codeBlock/<%= tomeDataKey.id %>">Back to code page (this is the run page)</a>
+        <nav class=greyBox>
+            <a href="/codeBlock/<%= tomeDataKey.id %>">Back to code page</a>
         </nav>
 
         <iframe src="../testFrame/<%=tomeDataKey.id%>" id="theSandbox" sandbox="allow-scripts" width="100%" height="800px"></iframe>

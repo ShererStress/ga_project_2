@@ -69,7 +69,7 @@ router.put(`/:id`, function(req,res) {
   });
 });
 
-//DESTROY(delete) - delete single product -> index
+//DESTROY(delete) - delete single tome -> index
 router.delete(`/:id`, function(req,res) {
   Tome.findByIdAndDelete(req.params.id, function(err, removedTome) {
     res.redirect(`/codeBlock`);
@@ -82,9 +82,6 @@ router.post(`/:id/run`, function(req,res) {
   let parametersIn = [];
   while(req.body[`parIn${paramNumber}`] !== undefined) {
     let argumentValue = req.body[`parIn${paramNumber}`];
-    if(req.body[`par${paramNumber}Type`] === "on") {
-      argumentValue = parseInt(argumentValue);
-    }
     parametersIn.push(argumentValue);
     paramNumber++;
   }

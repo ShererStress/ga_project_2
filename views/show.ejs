@@ -3,33 +3,37 @@
     <head>
         <meta charset="utf-8">
         <title></title>
+        <link rel="stylesheet" type="text/css" href="/css/showStyle.css">
     </head>
     <body >
       <h1> <%= tomeDataKey.title %> </h1>
+      <div class="functionWrapper">
         <h4><%= tomeDataKey.fName %> ( <% for(let i = 0; i < tomeDataKey.parameters.length; i++) {%>
          <%=tomeDataKey.parameters[i]%><%if(i+1<tomeDataKey.parameters.length){%><%=", "%><%}%>
       <%}%>)
            { </h4>
              <wrapper style="white-space: pre-wrap;"><h4><%=tomeDataKey.jsText; %></h4></wrapper><h4>
-           };
-         </h4>
-        <nav>
-            <a href="/codeBlock">Back to code Index</a>
-        </nav>
-        <nav>
-            <a href="/codeBlock/<%=tomeDataKey.id%>/edit">Edit this code</a>
-        </nav>
+           };</h4></div>
 
+        <a class="greyBox" href="/codeBlock/<%=tomeDataKey.id%>/edit">Edit this function</a>
+        <form action="/codeBlock/<%=tomeDataKey.id%>?_method=DELETE" method="POST">
+          <input type="submit" value="Delete this function"> </input>
+        </form>
+
+        <div class="runZone">
         <form action="/codeBlock/<%=tomeDataKey.id%>/run" method="POST">
           <% for(let i = 0; i < tomeDataKey.parameters.length; i++) { %>
+            <%if(i===0) { %>
+              <p> Arguments for the initial function call: </p>
+            <%}%>
           <p><%=tomeDataKey.parameters[i]%> value:</p> <input type="text" name="parIn<%=i%>" value=""/>
-          <input type="checkbox" name="par<%=i%>Type" value=""> Is this a number? <br>
           <%}%>
-          <input type="submit" value="Run this code"/>
+          <input type="submit" value="Run this code (review it first!)"/>
         </form>
+        </div>
 
-        <form action="/codeBlock/<%=tomeDataKey.id%>?_method=DELETE" method="POST">
-          <input type="submit" value="Delete"> </input>
-        </form>
+
+        <a class="greyBox" href="/codeBlock">Back to code Index</a>
+
     </body>
 </html>
