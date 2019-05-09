@@ -3,15 +3,15 @@
     <head>
         <meta charset="utf-8">
         <title></title>
+        <link rel="stylesheet" type="text/css" href="/css/iFrameStyle.css">
     </head>
-    <body style="white-space: pre-wrap;">
-      <h2>This is the iFrame!</h2>
-
-      <h4>
-              Start js here
+    <body>
               <%
-              let returnedData = [""];
+              let allOutputData = [""];
               let currentReturnIndex = 0;
+              let currentDepth = 0;
+              let maxDepth = 0;
+              let currentIteration = 0;
               %>
 
               <%
@@ -25,7 +25,6 @@
               standInString += `) {
                 ${tomeDataKey.jsText}}`;
               %>
-              <%=standInString %>
               <%eval(standInString)%>
 
               <%
@@ -38,9 +37,16 @@
               };
               recFunctionString += `) {
                 currentReturnIndex++;
-                returnedData.push("");
+                allOutputData.push("");
                 let thisFunctionsIndex = currentReturnIndex;
                 let thisFunctionsOutputObject = {};
+                currentDepth++;
+                if(currentDepth > maxDepth) {
+                  maxDepth = currentDepth;
+                }
+                thisFunctionsOutputObject.depth = currentDepth;
+                currentIteration++;
+                thisFunctionsOutputObject.fnCallNum = currentIteration;
                 `;
                 for(let i = 0; i < tomeDataKey.parameters.length; i++) {
                   recFunctionString += `thisFunctionsOutputObject.param${i}Data = ${tomeDataKey.parameters[i]};
@@ -55,17 +61,18 @@
                 }
                 recFunctionString += `);
                 thisFunctionsOutputObject.returnedData = data;
-                returnedData[thisFunctionsIndex] = thisFunctionsOutputObject;
+                allOutputData[thisFunctionsIndex] = thisFunctionsOutputObject;
+                currentDepth--;
                 return data;
               };`;
               %>
 
-              <%=recFunctionString %>
               <%eval(recFunctionString)%>
-              <% console.log(argumentsInKey); %>
 
               <%
               let initialOutputObject = {};
+              initialOutputObject.depth = 0;
+              initialOutputObject.fnCallNum = 0;
               let callFunctionString = `initialOutputObject.returnedData = standIn(`;
               for(let i = 0; i < argumentsInKey.length; i++) {
                 callFunctionString += `${argumentsInKey[i]}`;
@@ -76,13 +83,42 @@
               }
               callFunctionString += `);`;
               %>
-              <%=callFunctionString %>
               <%eval(callFunctionString)%>
-              <%returnedData[0] = initialOutputObject; %>
-              <%console.log(returnedData);%>
+              <%allOutputData[0] = initialOutputObject; %>
+              <%console.log(allOutputData);
+              allOutputData.sort(function(a,b) {
+                if((a.depth - b.depth) === 0) {
+                  return(a.fnCallNum - b.fnCallNum);
+                } else {
+                  return(a.depth - b.depth);
+                }
+              });
+              console.log(allOutputData);
+              %>
 
+              <div class="flexColumn">
+                <div class="flexRow">
+              <%
+              let currentDivDepth = 0;
+              for(let i = 0; i < allOutputData.length; i++) {
+                if(allOutputData[i].depth > currentDivDepth) {
+                  console.log("New row")
+                  currentDivDepth = allOutputData[i].depth; %>
+                  </div><div class="flexRow">
+                <%}%>
+                <container class="dataContainer">
+                  <h5> Function call #: <%=allOutputData[i].fnCallNum+1%> </h5>
+                  <% let j = 0;
+                  while(allOutputData[i][`param${j}Data`]) { %>
+                    <h5> Parameter <%=j%>: <%=allOutputData[i][`param${j}Data`]%> </h5>
+                    <%
+                    j++;
+                  }%>
 
+                  <h5> Return Value: <%=allOutputData[i].returnedData%> </h5>
 
-            </h4>
+                </container>
+              <%}%>
+              </div>
     </body>
 </html>

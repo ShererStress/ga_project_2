@@ -23,7 +23,8 @@
 
         <form action="/codeBlock/<%=tomeDataKey.id%>/run" method="POST">
           <% for(let i = 0; i < tomeDataKey.parameters.length; i++) { %>
-          <div class="formElement"> <p><%=tomeDataKey.parameters[i]%> value:</p> <input type="number" name="parIn<%=i%>" value=""/></div>
+          <p><%=tomeDataKey.parameters[i]%> value:</p> <input type="text" name="parIn<%=i%>" value=""/>
+          <input type="checkbox" name="par<%=i%>Type" value=""> Is this a number? <br>
           <%}%>
           <input type="submit" value="Run this code"/>
         </form>

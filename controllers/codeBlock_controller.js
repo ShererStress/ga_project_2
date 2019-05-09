@@ -20,7 +20,7 @@ router.get(`/new`, function(req,res) {
   res.render(`new.ejs`);
 });
 
-//CREATE(post) - create new product -> Show single block
+//CREATE(post) - create new tome -> Show single tome
 router.post(`/`, function(req,res) {
   console.log(req.body);
   Tome.create(req.body, function(err, tomeData) {
@@ -28,7 +28,7 @@ router.post(`/`, function(req,res) {
   });
 });
 
-//EDIT(get) - edit/delete single product
+//EDIT(get) - edit/delete single tome
 router.get(`/:id/edit`, function(req,res) {
   Tome.findById(req.params.id, function(err, tomeData) {
     res.render(`edit.ejs`, {
@@ -47,7 +47,7 @@ router.get(`/testFrame/:id`, function(req,res) {
   });
 });
 
-//SHOW(get) - single products
+//SHOW(get) - single tome
 router.get(`/:id`, function(req,res) {
   Tome.findById(req.params.id, function(err, tomeData) {
     res.render(`show.ejs`, {
@@ -81,7 +81,11 @@ router.post(`/:id/run`, function(req,res) {
   let paramNumber = 0;
   let parametersIn = [];
   while(req.body[`parIn${paramNumber}`] !== undefined) {
-    parametersIn.push(req.body[`parIn${paramNumber}`]);
+    let argumentValue = req.body[`parIn${paramNumber}`];
+    if(req.body[`par${paramNumber}Type`] === "on") {
+      argumentValue = parseInt(argumentValue);
+    }
+    parametersIn.push(argumentValue);
     paramNumber++;
   }
   inputArgumentsGlobal = parametersIn;

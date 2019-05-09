@@ -1,0 +1,19 @@
+.flexColumn {
+  display: flex;
+  flex-flow: column;
+}
+
+
+.flexRow {
+  display: flex;
+  flex-flow: row;
+  background-color: lightgrey;
+}
+
+
+.dataContainer {
+  background-color: grey;
+  margin: 10px;
+  border: 1px solid black;
+  border-radius: 3px;
+}
