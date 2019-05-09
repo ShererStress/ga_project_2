@@ -3,13 +3,14 @@
     <head>
         <meta charset="utf-8">
         <title></title>
+        <link rel="stylesheet" type="text/css" href="/css/newStyle.css">
     </head>
     <body>
-        <h1>New Function page</h1>
+        <h1 class="title">Create a new function</h1>
         <form action="/codeBlock" method="POST">
-            Code Title: <textarea name="title"></textarea><br/>
-            Function Name: <textarea name="fName"></textarea><br/>
-            <input type="submit" name="" value="Create New Function"/>
+            <formElement> <p>Code Title: </p> <textarea name="title"></textarea></formElement><br/>
+            <formElement> <p>Function Name: </p> <input type="text" name="fName"></formElement><br/>
+            <formElement><input type="submit" name="" value="Create New Function"/></formElement>
         </form>
     </body>
 </html>

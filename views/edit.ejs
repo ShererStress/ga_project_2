@@ -9,17 +9,13 @@
         <form id="editForm" action="/codeBlock/<%= tomeDataKey.id %>?_method=PUT" method="POST">
           <div class="formElement"> <p>Code Title:</p> <textarea name="title" ><%= tomeDataKey.title %> </textarea></div>
             <div class="formElement"> <p>Function Name:</p> <input type="text" name="fName" value="<%= tomeDataKey.fName %>"/></div>
-            <div id="paramDiv">
-              <% for(let i = 0; i < tomeDataKey.parameters.length; i++) { %>
-              <div class="formElement"> <p>Parameter <%=i+1%>:</p> <input type="text" name="par<%=i%>" value="<%= tomeDataKey.parameters[i] %>"/></div>
-              <%}%>
-            </div>
+            <div id="paramDiv"></div>
             <div class="formElement"> <p>Code Text:</p> <textarea name="jsText" ><%= tomeDataKey.jsText %> </textarea><br/>
             <input type="submit" name="" value="Save updates"/></div>
         </form>
-
         <button id="addParamButton"> Add another parameter </button>
         <button id="removeParamButton"> Remove last parameter </button>
+
         <script>
           document.getElementById("addParamButton").addEventListener("click", function() {
             let newParamButton = document.createElement("div");
@@ -37,7 +33,11 @@
             document.getElementById("paramDiv").appendChild(newParamButton);
           });
           document.getElementById("removeParamButton").addEventListener("click", function() {
-            console.log("Button Works");
+            let paramDiv = document.getElementById("paramDiv");
+            let indexToRemove = (paramDiv.childElementCount-1);
+            if(indexToRemove >= 0) {
+              paramDiv.removeChild(paramDiv.childNodes[indexToRemove]);
+            };
           });
         </script>
     </body>

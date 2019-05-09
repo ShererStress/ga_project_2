@@ -85,7 +85,7 @@
               %>
               <%eval(callFunctionString)%>
               <%allOutputData[0] = initialOutputObject; %>
-              <%console.log(allOutputData);
+              <%
               allOutputData.sort(function(a,b) {
                 if((a.depth - b.depth) === 0) {
                   return(a.fnCallNum - b.fnCallNum);
@@ -93,7 +93,6 @@
                   return(a.depth - b.depth);
                 }
               });
-              console.log(allOutputData);
               %>
 
               <div class="flexColumn">
@@ -102,7 +101,6 @@
               let currentDivDepth = 0;
               for(let i = 0; i < allOutputData.length; i++) {
                 if(allOutputData[i].depth > currentDivDepth) {
-                  console.log("New row")
                   currentDivDepth = allOutputData[i].depth; %>
                   </div><div class="flexRow">
                 <%}%>

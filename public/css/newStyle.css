@@ -1,0 +1,27 @@
+.title{
+  text-align: center;
+  margin: auto;
+}
+
+textArea{
+  height: 2em;
+  width: 300px;
+  min-height: 1.5em;
+}
+
+formElement{
+  margin: auto;
+  width: 60vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+input{
+  height: 1em;
+  width: 25em;
+}
+
+p{
+  margin: auto 1em;
+}
