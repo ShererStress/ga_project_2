@@ -47,3 +47,7 @@ app.use(`/codeBlock`, blockController);
 
 
 //Server routes
+
+app.get(`/`, function(req,res) {
+  res.redirect(`/codeBlock`);
+});
